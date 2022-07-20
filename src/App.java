@@ -1,4 +1,7 @@
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -23,6 +26,14 @@ public class App {
         movieList.stream().forEach((movie) -> {
             double rating = Double.parseDouble(movie.get("imDbRating"));
             long ratingRounded = Math.round(rating);
+            String url = StringUtils.replaceBetween("^(.*)(\\..*.)(.jpg)$", "", movie.get("image"));
+
+            try {
+                InputStream inputStream = new URL(url).openStream();
+                SitckerGenerator.generate(inputStream, movie.get("imDbRating"), movie.get("title"));
+            } catch (IOException e) {
+                e.getMessage();
+            }
 
             System.out.println("Titulo: " + movie.get("fullTitle"));
             System.out.println("Poster: " + movie.get("image"));

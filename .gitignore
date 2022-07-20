@@ -1,6 +1,4 @@
-alura-stickers/.vscode
-alura-stickers/bin
-alura-stickers/assets/*.png
-
-.classpath
-.project
+/.vscode
+/bin
+/assets
+/lib
